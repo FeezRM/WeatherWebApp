@@ -81,6 +81,7 @@
 
                document.querySelector(".weather").style.display = "block";
                document.querySelector(".error").style.display = "none";
+               localStorage.setItem("lastCity", city);
           }
 
 
@@ -90,6 +91,21 @@
 searchBtn.addEventListener("click", ()=>{
      checkWeather(searchBox.value);
 })
+
+searchBox.addEventListener("keydown", (event) => {
+     if (event.key === "Enter") {
+          searchBtn.click();
+     }
+})
+
+window.onload = () => {
+     searchBox.focus();
+     const lastCity = localStorage.getItem("lastCity");
+     if (lastCity) {
+          searchBox.value = lastCity;
+          checkWeather(lastCity);
+     }
+};
 
 checkWeather();
 
